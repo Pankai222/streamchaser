@@ -9,6 +9,8 @@ services:
         volumes:
             - ./frontend/:/app/frontend
             - app/frontend/node_modules
+        links:
+            - backend
     backend:
         build: ./backend
         container_name: fastapi
@@ -16,6 +18,7 @@ services:
             - 1337:1337
         volumes:
             - ./backend/:/app/backend
+        depends_on: ["search"]
     search:
         image: getmeili/meilisearch:latest
         container_name: meilisearch
